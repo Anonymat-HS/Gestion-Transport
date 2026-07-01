@@ -1,7 +1,5 @@
 package com.transport.n3;
 
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 

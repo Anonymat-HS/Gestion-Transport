@@ -1,8 +1,5 @@
 package com.transport.n3;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
 
 
@@ -20,7 +17,11 @@ public class Place {
     }
 
 
-    public Place(int i, TypeVoiture typeVoiture) {
+    public Place(int numeroPlace, TypeVoiture typeVoiture) {
+        this.numeroPlace = numeroPlace;
+        this.typeVoiture = typeVoiture;
+        this.placeDispo = true;
+        this.disponible = true;
     }
 
     public int getNumeroPlace() {
