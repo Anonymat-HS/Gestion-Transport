@@ -2,6 +2,7 @@ package com.transport.n3;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.java.Log;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
