@@ -7,10 +7,6 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-
-@Getter
-@Setter
-
 public class Voiture {
     private String id;
     private String numeroMatricule;
@@ -24,6 +20,46 @@ public class Voiture {
         this.typeVoiture = typeVoiture;
         this.chauffeur = chauffeur;
         this.places = genererPlace();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getNumeroMatricule() {
+        return numeroMatricule;
+    }
+
+    public void setNumeroMatricule(String numeroMatricule) {
+        this.numeroMatricule = numeroMatricule;
+    }
+
+    public TypeVoiture getTypeVoiture() {
+        return typeVoiture;
+    }
+
+    public void setTypeVoiture(TypeVoiture typeVoiture) {
+        this.typeVoiture = typeVoiture;
+    }
+
+    public Chauffeur getChauffeur() {
+        return chauffeur;
+    }
+
+    public void setChauffeur(Chauffeur chauffeur) {
+        this.chauffeur = chauffeur;
+    }
+
+    public List<Place> getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(List<Place> places) {
+        this.places = places;
     }
 
     public  int getNbrePlace (){

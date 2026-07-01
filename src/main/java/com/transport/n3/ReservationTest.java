@@ -42,8 +42,8 @@ public class ReservationTest {
                 "034 46 872 09",
                 "philiperajao@gmail.com",
                 null,
-                new ArrayList<>(),
-                null
+                null,
+                new ArrayList<>()
         );
 
         place = new Place(1, TypeVoiture.VVIP);
