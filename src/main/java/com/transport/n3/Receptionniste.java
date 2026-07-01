@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+
 
 public class Receptionniste extends Employee {
 
@@ -18,6 +17,14 @@ public class Receptionniste extends Employee {
     public Receptionniste(String id, String nom, String prenom, String telephone, Sexe sexe, double salaire) {
         super(id, nom, prenom, telephone, sexe, salaire);
         this.listeReservation = new ArrayList<>();
+    }
+
+    public List<Reservation> getListeReservation() {
+        return listeReservation;
+    }
+
+    public void setListeReservation(List<Reservation> listeReservation) {
+        this.listeReservation = listeReservation;
     }
 
     public List <Place> afficherPlaceDispo (Voiture voiture, LocalDate date){
@@ -38,11 +45,11 @@ public class Receptionniste extends Employee {
         }
         return new Ticket(
                 r.getId(),
-                r.getPlanDeVoyage().getDateDepart(),
-                r.getPlanDeVoyage().getDateArrive(),
+                r.getVoyage().getDateDepart(),
+                r.getVoyage().getDateArrive(),
                 r.getVoyageur(),
                 r.getPlace(),
-                r.getPlanDeVoyage().getVoiture()
+                r.getVoyage().getVoiture()
         );
     }
     //donner facture;

@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Getter
-@Setter
-
 public class Chauffeur extends Employee{
     private String permis;
     private List<Voyage> calendrierDeVoyage;
@@ -22,6 +19,22 @@ public class Chauffeur extends Employee{
 
     public  int getNbreTotalVoyage (){
         return calendrierDeVoyage.size();
+    }
+
+    public String getPermis() {
+        return permis;
+    }
+
+    public List<Voyage> getCalendrierDeVoyage() {
+        return calendrierDeVoyage;
+    }
+
+    public void setPermis(String permis) {
+        this.permis = permis;
+    }
+
+    public void setCalendrierDeVoyage(List<Voyage> calendrierDeVoyage) {
+        this.calendrierDeVoyage = calendrierDeVoyage;
     }
 
     public boolean pasAuRepos (LocalDate date ){

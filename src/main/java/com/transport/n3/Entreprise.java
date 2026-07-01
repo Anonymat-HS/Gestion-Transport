@@ -13,8 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-@Getter
-@Setter
+
 public class Entreprise {
     private String id;
     private String nom;
@@ -48,7 +47,71 @@ public class Entreprise {
         this.listeLogs = new ArrayList<>();
     }
 
-    // ----------------------------------------------------------------------
+    public String getId() {
+        return id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public List<Voiture> getListeVoiture() {
+        return listeVoiture;
+    }
+
+    public List<Employee> getListeEmployee() {
+        return listeEmployee;
+    }
+
+    public List<Reservation> getListeReservations() {
+        return listeReservations;
+    }
+
+    public List<HistoriqueAction> getListeLogs() {
+        return listeLogs;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public void setListeVoiture(List<Voiture> listeVoiture) {
+        this.listeVoiture = listeVoiture;
+    }
+
+    public void setListeEmployee(List<Employee> listeEmployee) {
+        this.listeEmployee = listeEmployee;
+    }
+
+    public void setListeReservations(List<Reservation> listeReservations) {
+        this.listeReservations = listeReservations;
+    }
+
+    public void setListeLogs(List<HistoriqueAction> listeLogs) {
+        this.listeLogs = listeLogs;
+    }
+
+// ----------------------------------------------------------------------
     // Méthodes indépendantes (déjà 100% fonctionnelles)
     // ----------------------------------------------------------------------
 
@@ -211,7 +274,7 @@ public class Entreprise {
         // id généré simplement à partir de la taille actuelle de la liste ;
         // à remplacer par un vrai générateur d'ID si l'équipe en a un (UUID, séquence DB, etc.)
         String idLog = "LOG-" + (listeLogs.size() + 1);
-        Log log = new Log(idLog, action, LocalDateTime.now(), employe);
+        HistoriqueAction log = new HistoriqueAction(idLog, action, LocalDateTime.now(), employe);
         listeLogs.add(log);
         System.out.println("Log ajouté : " + action);
     }
