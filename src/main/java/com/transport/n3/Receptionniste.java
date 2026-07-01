@@ -28,16 +28,16 @@ public class Receptionniste extends Employee {
     public List <Place> afficherPlaceDispo (Voiture voiture, LocalDate date){
         List<Place> placeDispo = new ArrayList<>();
         for ( Place place : voiture.getPlaces()){
-            if (place.estDispo()){
+            if (place.isPlaceDispo()){
                 placeDispo.add(place);
 
             }
         }
         return placeDispo;
     }
-    //donner ticket ; // a besoi du methode estpayee de la partie 1
+    //donner ticket
     public Ticket donnerTicket (Reservation r) {
-        if (!r.estPayee()) {
+        if (r.getStatut() != StatutDeReservation.PAYEE) {
             System.out.println("Réservation non payé");
             return null;
         }
