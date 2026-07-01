@@ -40,7 +40,7 @@ public class Voiture {
         }
        return  listePlaces;
     }
-    public List<Place> getPlacesDisponibles(PlanDeVoyage planDeVoyage) {
+    public List<Place> getPlacesDisponibles(Voyage planDeVoyage) {
         List<Place> dispo = new ArrayList<>();
         for (Place place : places) {
             if (place.estDispo()) {
