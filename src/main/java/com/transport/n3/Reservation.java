@@ -19,7 +19,9 @@ public class Reservation {
     private double prixTotal;
     private Bagage bagage;
 
-public Reservation() {
+    // Constructeur vide ajouté pour permettre la création d'instances
+    // sans paramètre (nécessaire pour EntrepriseTest).
+    public Reservation() {
     }
 
     public Reservation(String id, LocalDateTime dateReservation, LocalDate dateVoyage, Voyageur voyageur, Voyage voyage, Place place, StatutDeReservation statut, double prixTotal, Bagage bagage) {
@@ -105,6 +107,8 @@ public Reservation() {
         this.statut = statut;
     }
 
+    // Méthode ajoutée pour permettre aux tests (EntrepriseTest) de définir
+    // rapidement le statut sans créer un objet TypeDePaiements.
     public void setStatutPayee(boolean payee) {
         this.statut = payee ? StatutDeReservation.PAYEE : StatutDeReservation.ATTENTE;
     }

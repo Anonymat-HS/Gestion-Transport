@@ -221,8 +221,8 @@ public class Entreprise {
      * Retourne les trajets les plus réservés, du plus populaire au moins populaire.
      *
      * Hypothèses (à confirmer avec la Partie 1) :
-     *  - Reservation.getPlanning() retourne un PlanningVoyage.
-     *  - PlanningVoyage.getTrajet() retourne le Trajet associé.
+     *  - Reservation.getVoyage() retourne un Voyage (remplace l'ancien PlanningVoyage).
+     *  - Voyage.getTrajet() retourne le Trajet associé.
      */
     public List<Trajet> getTrajetsPopulaires() {
         if (listeReservations == null || listeReservations.isEmpty()) {
