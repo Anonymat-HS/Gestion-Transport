@@ -1,6 +1,7 @@
 package com.transport.n3;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Tests — Classe Receptionniste")
 class ReceptionnisteTest {
     private Receptionniste receptionniste;
     private Voiture voiture;
@@ -24,6 +26,7 @@ class ReceptionnisteTest {
 
     @BeforeEach
     void setUp (){
+        // GIVEN : un réceptionniste, un chauffeur, un trajet et une voiture
         receptionniste = new Receptionniste("R1", "Rasoa", "Volana", "0341234567", Sexe.FEMININ, 500000);
 
          chauffeur = new Chauffeur("C1", "Rakoto", "Jean", "0341111111", Sexe.MASCULIN, 600000, "B");
@@ -56,7 +59,7 @@ class ReceptionnisteTest {
 
          bagage = new Bagage("r21", "plein d'habille et valise de couleur bleu", 15.0,0.0);
 
-        // réservation payée
+        // GIVEN : une réservation payée
         reservationPayee = new Reservation(
                 "RES1",
                 LocalDateTime.now(),
@@ -69,7 +72,7 @@ class ReceptionnisteTest {
                 bagage
         );
 
-        // réservation non payée
+        // GIVEN : une réservation non payée
         reservationNonPayee = new Reservation(
                 "RES2",
                 LocalDateTime.now(),
@@ -81,85 +84,132 @@ class ReceptionnisteTest {
                 0.0,
                 bagage
         );
+        reservationNonPayee.setPrixTotal(0.0);
     }
 
     @Test
+    @DisplayName("enregistrerReservation ajoute la réservation dans la liste")
     void erengistrerReservation_ajoute_bien_dans_la_liste(){
+        // GIVEN : un réceptionniste avec une liste vide
+        // WHEN : on enregistre deux réservations
         receptionniste.enregistrerReservation(reservationNonPayee);
         receptionniste.enregistrerReservation(reservationNonPayee);
 
+        // THEN : la liste contient 2 réservations
         assertEquals(2, receptionniste.getListeReservation().size() );
     }
 
     @Test
+    @DisplayName("afficherPlaceDispo retourne toutes les places quand tout est disponible")
     void afficher_place_Dispo_ou_tout_dispo(){
+        // GIVEN : une voiture avec toutes ses places disponibles
+        // WHEN : on affiche les places disponibles
         List<Place> placesDispo = receptionniste.afficherPlaceDispo(voiture, LocalDate.of(2025,6,1));
 
+        // THEN : les 16 places sont retournées
         assertEquals(16, placesDispo.size());
     }
 
     @Test
+    @DisplayName("afficherPlaceDispo exclut les places marquées indisponibles")
     void afficher_place_dispo_ou_certains_sont_pas_dispo(){
+        // GIVEN : une voiture dont 2 places sont indisponibles
         voiture.getPlaces().getFirst().setPlaceDispo(false);
         voiture.getPlaces().getLast().setPlaceDispo(false);
 
+        // WHEN : on affiche les places disponibles
         List<Place> placesDispo = receptionniste.afficherPlaceDispo(voiture,LocalDate.of(2025,6,1));
 
+        // THEN : seules 14 places sont retournées
         assertEquals(14, placesDispo.size());
     }
 
     @Test
+    @DisplayName("afficherPlaceDispo retourne une liste vide si aucune place dispo")
     void afficher_place_dispo_ou_tout_est_indsipo(){
+        // GIVEN : une voiture dont toutes les places sont indisponibles
         for (Place place: voiture.getPlaces()){
            place.setPlaceDispo(false);
         }
+
+        // WHEN : on affiche les places disponibles
         List<Place> placesDispo = receptionniste.afficherPlaceDispo(voiture,LocalDate.of(2025,6,1));
 
+        // THEN : la liste est vide
         assertTrue(placesDispo.isEmpty());
     }
 
     @Test
+    @DisplayName("donnerTicket retourne un ticket pour une réservation payée")
     void donnerTicket_reservationPayee_retourneTicket() {
+        // GIVEN : une réservation avec statut PAYEE
+        // WHEN : on demande un ticket
         Ticket ticket = receptionniste.donnerTicket(reservationPayee);
+
+        // THEN : un ticket est créé
         assertNotNull(ticket);
     }
 
     @Test
+    @DisplayName("donnerTicket retourne null pour une réservation non payée")
     void donnerTicket_reservationNonPayee_retourneNull() {
+        // GIVEN : une réservation avec statut ATTENTE
+        // WHEN : on demande un ticket
         Ticket ticket = receptionniste.donnerTicket(reservationNonPayee);
+
+        // THEN : aucun ticket n'est délivré
         assertNull(ticket);
     }
 
     @Test
+    @DisplayName("donnerTicket associe le bon voyageur au ticket")
     void donnerTicket_contientBonVoyageur() {
+        // GIVEN : une réservation payée avec un voyageur spécifique
+        // WHEN : on génère le ticket
         Ticket ticket = receptionniste.donnerTicket(reservationPayee);
+
+        // THEN : le ticket contient le même voyageur que la réservation
         assertNotNull(ticket);
         assertEquals(voyageur, ticket.getVoyageur());
     }
 
 
     @Test
+    @DisplayName("donnerFacture retourne une facture pour une réservation valide")
     void donnerFacture_reservationPayee_retourneFacture() {
+        // GIVEN : une réservation avec un prix valide
+        // WHEN : on demande une facture
         Facture facture = receptionniste.donnerFacture(reservationPayee);
+
+        // THEN : une facture est créée
         assertNotNull(facture);
     }
 
     @Test
+    @DisplayName("donnerFacture retourne null si le montant est invalide")
     void donnerFacture_montantInvalide_retourneNull() {
-        // réservation avec prixTotal = 0 (méthodes Partie 1 pas encore faites)
+        // GIVEN : une réservation avec prixTotal = 0
+        // WHEN : on demande une facture
         Facture facture = receptionniste.donnerFacture(reservationNonPayee);
+
+        // THEN : aucune facture n'est générée
         assertNull(facture);
     }
 
 
     @Test
+    @DisplayName("HistoriqueAction est correctement créée")
     void historiqueAction_creation_correcte() {
+        // GIVEN : les paramètres d'un log
+        // WHEN : on crée un HistoriqueAction
         HistoriqueAction log = new HistoriqueAction(
                 "H1",
                 "Reservation enregistrée",
                 LocalDateTime.now(),
                 receptionniste
         );
+
+        // THEN : tous les champs sont bien initialisés
         assertEquals("H1", log.getId());
         assertEquals("Reservation enregistrée", log.getAction());
         assertEquals(receptionniste, log.getEmployee());
@@ -167,14 +217,17 @@ class ReceptionnisteTest {
     }
 
     @Test
+    @DisplayName("HistoriqueAction est immuable (pas de setters)")
     void historiqueAction_immuable_pasDeModification() {
-        // HistoriqueAction n'a pas de setters — on vérifie juste qu'on peut lire
+        // GIVEN : un log avec des données spécifiques
         HistoriqueAction log = new HistoriqueAction(
                 "H2",
                 "Test action",
                 LocalDateTime.of(2025, 1, 1, 10, 0),
                 receptionniste
         );
+
+        // WHEN & THEN : on peut lire les valeurs, pas de setters pour les modifier
         assertEquals("Test action", log.getAction());
         assertEquals(LocalDateTime.of(2025, 1, 1, 10, 0), log.getDateHeure());
     }
