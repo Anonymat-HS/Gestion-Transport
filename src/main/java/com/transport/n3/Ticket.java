@@ -19,4 +19,5 @@ public class Ticket {
     private  Voiture voiture;
     private Trajet trajet;
     private StatutDeReservation statutDeReservation;
+
 }
