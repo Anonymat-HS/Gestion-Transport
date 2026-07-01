@@ -14,7 +14,7 @@ public class Chauffeur extends Employee{
     private String permis;
     private List<PlanDeVoyage> calendrierDeVoyage;
 
-    public Chauffeur(String id, String nom, String prenom, String telephone, Sexe sexe, double salaire, String permis, List<PlanDeVoyage> calendrierDeVoyage) {
+    public Chauffeur(String id, String nom, String prenom, String telephone, Sexe sexe, double salaire, String permis) {
         super(id, nom, prenom, telephone, sexe, salaire);
         this.permis = permis;
         this.calendrierDeVoyage = new ArrayList<>();
