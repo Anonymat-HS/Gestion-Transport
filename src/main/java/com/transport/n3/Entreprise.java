@@ -1,7 +1,5 @@
 package com.transport.n3;
 
-import lombok.Getter;
-import lombok.Setter;
 
 
 import java.time.LocalDateTime;
@@ -234,9 +232,9 @@ public class Entreprise {
 
         // On compte le nombre de réservations par trajet à l'aide d'une Map.
         Map<Trajet, Long> compteurParTrajet = listeReservations.stream()
-                .filter(r -> r != null && r.getPlanning() != null && r.getPlanning().getTrajet() != null)
+                .filter(r -> r != null && r.getVoyage() != null && r.getVoyage().getTrajet() != null)
                 .collect(Collectors.groupingBy(
-                        r -> r.getPlanning().getTrajet(),
+                        r -> r.getVoyage().getTrajet(),
                         Collectors.counting()
                 ));
 

@@ -1,8 +1,5 @@
 package com.transport.n3;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
 
 public class Trajet {
@@ -75,5 +72,20 @@ public class Trajet {
                return prixBase;
            }
        }
+    }
+
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trajet trajet = (Trajet) o;
+        return id != null && id.equals(trajet.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }
