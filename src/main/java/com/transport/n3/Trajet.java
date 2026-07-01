@@ -74,8 +74,11 @@ public class Trajet {
        }
     }
 
-
-
+    // Nécessaire pour que getTrajetsPopulaires() dans Entreprise puisse regrouper
+// correctement les réservations par trajet dans une Map.
+// Sans ces méthodes, Java compare les adresses mémoire et considère deux objets
+// Trajet avec le même id comme différents, ce qui fausserait le comptage.
+// Avec ces méthodes, deux Trajet avec le même id sont considérés identiques.
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

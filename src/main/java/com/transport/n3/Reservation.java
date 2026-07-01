@@ -19,7 +19,10 @@ public class Reservation {
     private double prixTotal;
     private Bagage bagage;
 
-public Reservation(String id, LocalDateTime dateReservation, LocalDate dateVoyage, Voyageur voyageur, Voyage voyage, Place place, StatutDeReservation statut, double prixTotal, Bagage bagage) {
+public Reservation() {
+    }
+
+    public Reservation(String id, LocalDateTime dateReservation, LocalDate dateVoyage, Voyageur voyageur, Voyage voyage, Place place, StatutDeReservation statut, double prixTotal, Bagage bagage) {
     this.id = id;
     this.dateReservation = dateReservation;
     this.dateVoyage = dateVoyage;
@@ -100,6 +103,10 @@ public Reservation(String id, LocalDateTime dateReservation, LocalDate dateVoyag
 
     public void setStatut(StatutDeReservation statut) {
         this.statut = statut;
+    }
+
+    public void setStatutPayee(boolean payee) {
+        this.statut = payee ? StatutDeReservation.PAYEE : StatutDeReservation.ATTENTE;
     }
 
     public void setPrixTotal(double prixTotal) {
