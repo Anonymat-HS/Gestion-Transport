@@ -22,23 +22,23 @@ public class Reservation {
     }
 
     public Reservation(String id, LocalDateTime dateReservation, LocalDate dateVoyage, Voyageur voyageur, Voyage voyage, Place place, StatutDeReservation statut, double prixTotal, Bagage bagage) {
-    this.id = id;
-    this.dateReservation = dateReservation;
-    this.dateVoyage = dateVoyage;
-    this.voyageur = voyageur;
-    this.voyage = voyage;
-    this.place = place;
-    this.paiements = null;
-    this.statut = statut;
-    this.bagage = bagage;
-    this.prixTotal =  voyage.getTrajet().getPrix(place.getTypeVoiture()) + bagage.getPrixSupplementaire();
+        this.id = id;
+        this.dateReservation = dateReservation;
+        this.dateVoyage = dateVoyage;
+        this.voyageur = voyageur;
+        this.voyage = voyage;
+        this.place = place;
+        this.paiements = null;
+        this.statut = statut;
+        this.bagage = bagage;
+        this.prixTotal =  voyage.getTrajet().getPrix(place.getTypeVoiture()) + bagage.getPrixSupplementaire();
 
-    if (voyageur != null) {
-        voyageur.faireReservation(this);
-    } else {
-        throw new IllegalArgumentException("La résérvation ne peut pas etre éfféctuée");
+        if (voyageur != null) {
+            voyageur.faireReservation(this);
+        } else {
+            throw new IllegalArgumentException("La résérvation ne peut pas etre éfféctuée");
+        }
     }
-}
 
     public String getId() {
         return id;
