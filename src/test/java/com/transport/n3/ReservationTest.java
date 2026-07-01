@@ -1,8 +1,7 @@
-package com.transport.n3.test;
+package com.transport.n3;
 
-import com.transport.n3.*;
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,7 +43,7 @@ public class ReservationTest {
                 "philiperajao@gmail.com",
                 null,
                 null,
-                new Ticket()
+                new ArrayList<>()
         );
 
         place = new Place(1, TypeVoiture.VVIP);
@@ -115,5 +114,4 @@ public class ReservationTest {
 
         assertFalse(reservation.estPayee());
     }
-
 }

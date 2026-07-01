@@ -1,19 +1,36 @@
 package com.transport.n3;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+
 
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
-@Getter
-@Setter
+
 public class HistoriqueAction {
     private String id;
     private String action;
     private LocalDateTime dateHeure;
     private Employee employee;
 
+    public HistoriqueAction(String id, String action, LocalDateTime dateHeure, Employee employee) {
+        this.id = id;
+        this.action = action;
+        this.dateHeure = dateHeure;
+        this.employee = employee;
+    }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public LocalDateTime getDateHeure() {
+        return dateHeure;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
 }

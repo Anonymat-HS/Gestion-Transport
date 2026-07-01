@@ -1,7 +1,5 @@
 package com.transport.n3;
 
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,16 +28,16 @@ public class Receptionniste extends Employee {
     public List <Place> afficherPlaceDispo (Voiture voiture, LocalDate date){
         List<Place> placeDispo = new ArrayList<>();
         for ( Place place : voiture.getPlaces()){
-            if (place.estDispo()){
+            if (place.isPlaceDispo()){
                 placeDispo.add(place);
 
             }
         }
         return placeDispo;
     }
-    //donner ticket ; // a besoi du methode estpayee de la partie 1
+    //donner ticket
     public Ticket donnerTicket (Reservation r) {
-        if (!r.estPayee()) {
+        if (r.getStatut() != StatutDeReservation.PAYEE) {
             System.out.println("Réservation non payé");
             return null;
         }
@@ -49,9 +47,7 @@ public class Receptionniste extends Employee {
                 r.getVoyage().getDateArrive(),
                 r.getVoyageur(),
                 r.getPlace(),
-                r.getVoyage().getVoiture(),
-                r.getVoyage().getTrajet(),
-                r.getStatut()
+                r.getVoyage().getVoiture()
         );
     }
     //donner facture;
@@ -75,10 +71,10 @@ public class Receptionniste extends Employee {
         listeReservation.add(r);
 
         HistoriqueAction log = new HistoriqueAction(
-                r.getId(),
+                 r.getId(),
                 "Reservation fait pour" + r.getVoyageur().getNom(),
-                LocalDateTime.now(),
-                this
+                 LocalDateTime.now(),
+                 this
         );
     }
 

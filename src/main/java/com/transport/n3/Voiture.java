@@ -1,13 +1,12 @@
 package com.transport.n3;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @Getter
 @Setter
 
@@ -15,8 +14,10 @@ public class Voiture {
     private String id;
     private String numeroMatricule;
     private TypeVoiture typeVoiture;
-    private List<Place> places;
     private Chauffeur chauffeur;
+    private List<Place> places;
+
+
 
     public Voiture(String id, String numeroMatricule, TypeVoiture typeVoiture, Chauffeur chauffeur) {
         this.id = id;

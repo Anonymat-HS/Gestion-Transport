@@ -1,12 +1,8 @@
 package com.transport.n3;
 
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
 
 public class PaimentMobile extends TypeDePaiments{
     private String numero;
@@ -17,6 +13,30 @@ public class PaimentMobile extends TypeDePaiments{
         super(id, dateTransaction, montant, nomDuPayeur);
         this.numero = numero;
         this.referenceDePaiement = referenceDePaiement;
+        this.operateur = operateur;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public String getReferenceDePaiement() {
+        return referenceDePaiement;
+    }
+
+    public Operateur getOperateur() {
+        return operateur;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public void setReferenceDePaiement(String referenceDePaiement) {
+        this.referenceDePaiement = referenceDePaiement;
+    }
+
+    public void setOperateur(Operateur operateur) {
         this.operateur = operateur;
     }
 }

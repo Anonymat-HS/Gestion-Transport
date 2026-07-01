@@ -1,18 +1,17 @@
 package com.transport.n3;
 
-import lombok.Getter;
-import lombok.Setter;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-@Getter
-@Setter
+
 public class Entreprise {
     private String id;
     private String nom;
@@ -45,6 +44,74 @@ public class Entreprise {
         this.listeReservations = new ArrayList<>();
         this.listeLogs = new ArrayList<>();
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public List<Voiture> getListeVoiture() {
+        return listeVoiture;
+    }
+
+    public List<Employee> getListeEmployee() {
+        return listeEmployee;
+    }
+
+    public List<Reservation> getListeReservations() {
+        return listeReservations;
+    }
+
+    public List<HistoriqueAction> getListeLogs() {
+        return listeLogs;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public void setListeVoiture(List<Voiture> listeVoiture) {
+        this.listeVoiture = listeVoiture;
+    }
+
+    public void setListeEmployee(List<Employee> listeEmployee) {
+        this.listeEmployee = listeEmployee;
+    }
+
+    public void setListeReservations(List<Reservation> listeReservations) {
+        this.listeReservations = listeReservations;
+    }
+
+    public void setListeLogs(List<HistoriqueAction> listeLogs) {
+        this.listeLogs = listeLogs;
+    }
+
+// ----------------------------------------------------------------------
+    // Méthodes indépendantes (déjà 100% fonctionnelles)
+    // ----------------------------------------------------------------------
 
     public List<Employee> afficherListeEmployes() {
         if (listeEmployee == null || listeEmployee.isEmpty()) {
@@ -83,9 +150,14 @@ public class Entreprise {
         System.out.printf("Salaire de %.2f Ar versé à l'employé %s %s.%n",
                 salaire, e.getNom(), e.getPrenom());
 
+        // Traçabilité : on logge automatiquement chaque paiement de salaire.
         ajouterLog("Paiement salaire de " + salaire + " Ar à l'employé " + e.getId(), e);
         return true;
     }
+
+    // ----------------------------------------------------------------------
+    // Méthode utilitaire pour alimenter listeReservations (voir hypothèse ci-dessus)
+    // ----------------------------------------------------------------------
 
     /**
      * À appeler par la Réceptionniste (Partie 3) à chaque nouvelle réservation,
@@ -97,6 +169,10 @@ public class Entreprise {
         }
         this.listeReservations.add(r);
     }
+
+    // ----------------------------------------------------------------------
+    // Méthodes dépendantes de Reservation/PlanningVoyage (Partie 1)
+    // ----------------------------------------------------------------------
 
     /**
      * Calcule le bénéfice (revenus - charges salariales) pour un mois/année donnés.
@@ -110,6 +186,7 @@ public class Entreprise {
     public double calculerBeneficeParMois(int mois, int annee) {
         validerMoisAnnee(mois, annee);
 
+        // --- Charges : ne dépend de personne, déjà fiable ---
         double totalSalaires = 0.0;
         if (listeEmployee != null) {
             for (Employee e : listeEmployee) {
@@ -117,11 +194,12 @@ public class Entreprise {
             }
         }
 
+        // --- Revenus : dépend de Reservation (Partie 1) ---
         double totalRevenus = 0.0;
         if (listeReservations != null) {
             for (Reservation r : listeReservations) {
                 if (r == null || r.getDateVoyage() == null) {
-                    continue;
+                    continue; // on ignore une réservation mal formée plutôt que de planter
                 }
                 boolean memeMois = r.getDateVoyage().getMonthValue() == mois
                         && r.getDateVoyage().getYear() == annee;
@@ -143,8 +221,8 @@ public class Entreprise {
      * Retourne les trajets les plus réservés, du plus populaire au moins populaire.
      *
      * Hypothèses (à confirmer avec la Partie 1) :
-     *  - Reservation.getPlanning() retourne un PlanningVoyage.
-     *  - PlanningVoyage.getTrajet() retourne le Trajet associé.
+     *  - Reservation.getVoyage() retourne un Voyage (remplace l'ancien PlanningVoyage).
+     *  - Voyage.getTrajet() retourne le Trajet associé.
      */
     public List<Trajet> getTrajetsPopulaires() {
         if (listeReservations == null || listeReservations.isEmpty()) {
@@ -152,19 +230,32 @@ public class Entreprise {
             return Collections.emptyList();
         }
 
+        // On compte le nombre de réservations par trajet à l'aide d'une Map.
         Map<Trajet, Long> compteurParTrajet = listeReservations.stream()
-                .filter(r -> r != null && r.getPlanning() != null && r.getPlanning().getTrajet() != null)
+                .filter(r -> r != null && r.getVoyage() != null && r.getVoyage().getTrajet() != null)
                 .collect(Collectors.groupingBy(
-                        r -> r.getPlanning().getTrajet(),
+                        r -> r.getVoyage().getTrajet(),
                         Collectors.counting()
                 ));
 
+        // Tri décroissant par nombre de réservations (le trajet le plus demandé en premier).
         return compteurParTrajet.entrySet().stream()
                 .sorted((a, b) -> Long.compare(b.getValue(), a.getValue()))
                 .map(Entry::getKey)
                 .collect(Collectors.toList());
     }
 
+    // ----------------------------------------------------------------------
+    // Méthode dépendante de Log (Partie 3)
+    // ----------------------------------------------------------------------
+
+    /**
+     * Ajoute une entrée dans l'historique des actions de l'entreprise.
+     *
+     * Hypothèse (à confirmer avec la Partie 3) : Log possède un constructeur
+     * (id, action, dateHeure, employe) — typiquement via @AllArgsConstructor.
+     * Si l'employé n'est pas connu pour cette action, on passe null.
+     */
     public void ajouterLog(String action) {
         ajouterLog(action, null);
     }
@@ -172,21 +263,23 @@ public class Entreprise {
     /**
      * Surcharge permettant d'associer un employé précis à l'action loggée
      * (utile par exemple pour payerSalaireEmploye()).
-     *
-     * Hypothèse (à confirmer avec la Partie 3) : Log possède un constructeur
-     * (id, action, dateHeure, employe) — typiquement via @AllArgsConstructor.
      */
     public void ajouterLog(String action, Employee employe) {
         if (action == null || action.isBlank()) {
             System.out.println("Erreur : impossible de logger une action vide.");
             return;
         }
-        // id à remplacer par un vrai générateur (UUID, séquence DB...) si l'équipe en a un
+        // id généré simplement à partir de la taille actuelle de la liste ;
+        // à remplacer par un vrai générateur d'ID si l'équipe en a un (UUID, séquence DB, etc.)
         String idLog = "LOG-" + (listeLogs.size() + 1);
         HistoriqueAction log = new HistoriqueAction(idLog, action, LocalDateTime.now(), employe);
         listeLogs.add(log);
         System.out.println("Log ajouté : " + action);
     }
+
+    // ----------------------------------------------------------------------
+    // Utilitaires privés
+    // ----------------------------------------------------------------------
 
     private void validerMoisAnnee(int mois, int annee) {
         if (mois < 1 || mois > 12) {

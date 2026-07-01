@@ -12,5 +12,19 @@ public class PaiementEspece extends TypeDePaiments {
         this.monnaieRendue = monnaieRendue;
     }
 
+    public double getMontantRemis() {
+        return montantRemis;
+    }
 
+    public double getMonnaieRendue() {
+        return monnaieRendue;
+    }
+
+    public void setMontantRemis(double montantRemis) {
+        this.montantRemis = montantRemis;
+    }
+
+    public void setMonnaieRendue(double monnaieRendue) {
+        this.monnaieRendue = monnaieRendue;
+    }
 }

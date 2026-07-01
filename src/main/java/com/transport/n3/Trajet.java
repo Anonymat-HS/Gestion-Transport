@@ -1,12 +1,6 @@
 package com.transport.n3;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
-@AllArgsConstructor
-@Getter
-@Setter
 
 public class Trajet {
     private String id;
@@ -14,6 +8,54 @@ public class Trajet {
     private Ville villeArrive;
     private int dureeEstime;
     private double prixBase;
+
+    public Trajet(String id, Ville villeDepart, Ville villeArrive, int dureeEstime, double prixBase) {
+        this.id = id;
+        this.villeDepart = villeDepart;
+        this.villeArrive = villeArrive;
+        this.dureeEstime = dureeEstime;
+        this.prixBase = prixBase;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Ville getVilleDepart() {
+        return villeDepart;
+    }
+
+    public void setVilleDepart(Ville villeDepart) {
+        this.villeDepart = villeDepart;
+    }
+
+    public Ville getVilleArrive() {
+        return villeArrive;
+    }
+
+    public void setVilleArrive(Ville villeArrive) {
+        this.villeArrive = villeArrive;
+    }
+
+    public int getDureeEstime() {
+        return dureeEstime;
+    }
+
+    public void setDureeEstime(int dureeEstime) {
+        this.dureeEstime = dureeEstime;
+    }
+
+    public double getPrixBase() {
+        return prixBase;
+    }
+
+    public void setPrixBase(double prixBase) {
+        this.prixBase = prixBase;
+    }
 
     public double getPrix(TypeVoiture typeVoiture) {
        switch (typeVoiture){
@@ -30,5 +72,22 @@ public class Trajet {
                return prixBase;
            }
        }
+    }
+    // Nécessaire pour que getTrajetsPopulaires() dans Entreprise puisse regrouper
+// correctement les réservations par trajet dans une Map.
+// Sans ces méthodes, Java compare les adresses mémoire et considère deux objets
+// Trajet avec le même id comme différents, ce qui fausserait le comptage.
+// Avec ces méthodes, deux Trajet avec le même id sont considérés identiques.
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trajet trajet = (Trajet) o;
+        return id != null && id.equals(trajet.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }
