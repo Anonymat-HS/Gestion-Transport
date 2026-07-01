@@ -3,6 +3,7 @@ package com.transport.n3;
 import lombok.Getter;
 import lombok.Setter;
 
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,7 +34,7 @@ public class Entreprise {
     private List<Reservation> listeReservations;
 
     // AJOUT : nécessaire pour ajouterLog(), puisque Entreprise *-- Log (composition) dans l'UML.
-    private List<Log> listeLogs;
+    private List<HistoriqueAction> listeLogs;
 
     public Entreprise(String id, String nom, String email, String telephone,
                       List<Voiture> listeVoiture, List<Employee> listeEmployee) {
