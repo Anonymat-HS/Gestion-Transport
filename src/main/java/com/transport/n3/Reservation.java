@@ -18,7 +18,7 @@ public class Reservation {
     private LocalDateTime dateReservation;
     private LocalDate dateVoyage;
     private Voyageur voyageur;
-    private PlanDeVoyage planDeVoyage;
+    private Voyage planDeVoyage;
     private Place place;
     private TypeDePaiments paiements;
     private StatutDeReservation statut;
@@ -44,81 +44,6 @@ public class Reservation {
         }
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getDateReservation() {
-        return dateReservation;
-    }
-
-    public void setDateReservation(LocalDateTime dateReservation) {
-        this.dateReservation = dateReservation;
-    }
-
-    public LocalDate getDateVoyage() {
-        return dateVoyage;
-    }
-
-    public void setDateVoyage(LocalDate dateVoyage) {
-        this.dateVoyage = dateVoyage;
-    }
-
-    public Voyageur getVoyageur() {
-        return voyageur;
-    }
-
-    public void setVoyageur(Voyageur voyageur) {
-        this.voyageur = voyageur;
-    }
-
-    public Voyage getVoyage() {
-        return voyage;
-    }
-
-    public void setVoyage(Voyage voyage) {
-        this.voyage = voyage;
-    }
-
-    public Place getPlace() {
-        return place;
-    }
-
-    public void setPlace(Place place) {
-        this.place = place;
-    }
-
-    public TypeDePaiments getPaiements() {
-        return paiements;
-    }
-
-    public void setPaiements(TypeDePaiments paiements) {
-        this.paiements = paiements;
-    }
-
-    public StatutDeReservation getStatut() {
-        return statut;
-    }
-
-    public void setStatut(StatutDeReservation statut) {
-        this.statut = statut;
-    }
-
-    public void setPrixTotal(double prixTotal) {
-        this.prixTotal = prixTotal;
-    }
-
-    public Bagage getBagage() {
-        return bagage;
-    }
-
-    public void setBagage(Bagage bagage) {
-        this.bagage = bagage;
-    }
 
     public boolean estPayee() {
         if (paiements == null) {

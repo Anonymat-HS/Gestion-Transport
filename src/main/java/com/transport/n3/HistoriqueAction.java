@@ -11,8 +11,9 @@ import java.time.LocalDateTime;
 @Setter
 public class HistoriqueAction {
     private String id;
+    private String action;
     private LocalDateTime dateHeure;
     private Employee employee;
-//-action: String
+
 
 }

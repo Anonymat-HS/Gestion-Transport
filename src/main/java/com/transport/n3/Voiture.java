@@ -18,9 +18,18 @@ public class Voiture {
     private List<Place> places;
     private Chauffeur chauffeur;
 
+    public Voiture(String id, String numeroMatricule, TypeVoiture typeVoiture, Chauffeur chauffeur) {
+        this.id = id;
+        this.numeroMatricule = numeroMatricule;
+        this.typeVoiture = typeVoiture;
+        this.chauffeur = chauffeur;
+        this.places = genererPlace();
+    }
+
     public  int getNbrePlace (){
       return   places.size();
     }
+
 
     private List<Place> genererPlace (){
         List<Place> listePlaces = new ArrayList<>();
@@ -32,7 +41,7 @@ public class Voiture {
         }
        return  listePlaces;
     }
-    public List<Place> getPlacesDisponibles(PlanDeVoyage planDeVoyage) {
+    public List<Place> getPlacesDisponibles(Voyage planDeVoyage) {
         List<Place> dispo = new ArrayList<>();
         for (Place place : places) {
             if (place.estDispo()) {
