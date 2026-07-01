@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 
 
-public class Voyageur {
+public class   Voyageur {
     private String id;
     private String nom;
     private String prenom;
