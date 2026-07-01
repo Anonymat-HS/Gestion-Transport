@@ -4,9 +4,6 @@ package com.transport.n3;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-
-
-
 public class Reservation {
     private String id;
     private LocalDateTime dateReservation;
