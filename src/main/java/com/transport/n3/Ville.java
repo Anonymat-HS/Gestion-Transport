@@ -1,5 +1,5 @@
 package com.transport.n3;
 
-public enum Ville {
+public enum  Ville {
     ANTANANARIVO, TOAMASINA, MAHAJANGA, TOLIARA, ANTSIRANANA, ANTSIRABE, MORONDAVA, FIANARANTSOA, DIEGO
 }

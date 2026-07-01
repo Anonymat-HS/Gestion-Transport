@@ -17,4 +17,6 @@ public class Ticket {
     private Voyageur voyageur;
     private Place place;
     private  Voiture voiture;
+    private Trajet trajet;
+    private StatutDeReservation statutDeReservation;
 }
