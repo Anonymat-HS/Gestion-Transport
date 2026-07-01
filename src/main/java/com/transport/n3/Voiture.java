@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+
 @Getter
 @Setter
 
@@ -15,8 +15,16 @@ public class Voiture {
     private String id;
     private String numeroMatricule;
     private TypeVoiture typeVoiture;
-    private List<Place> places;
     private Chauffeur chauffeur;
+    private List<Place> places;
+
+    public Voiture(String id, String numeroMatricule, TypeVoiture typeVoiture, Chauffeur chauffeur) {
+        this.id = id;
+        this.numeroMatricule = numeroMatricule;
+        this.typeVoiture = typeVoiture;
+        this.chauffeur = chauffeur;
+        this.places = genererPlace();
+    }
 
     public  int getNbrePlace (){
       return   places.size();
