@@ -17,6 +17,8 @@ public class Place {
     }
 
 
+    // Constructeur corrigé : il était vide, ce qui laissait typeVoiture à null
+    // et causait des NullPointerException dans les tests (Place.estDispo()).
     public Place(int numeroPlace, TypeVoiture typeVoiture) {
         this.numeroPlace = numeroPlace;
         this.typeVoiture = typeVoiture;

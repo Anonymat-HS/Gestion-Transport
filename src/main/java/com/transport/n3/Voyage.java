@@ -12,6 +12,8 @@ public class Voyage {
     private Voiture voiture;
     private Chauffeur chauffeur;
 
+    // Constructeur vide ajouté pour créer une instance sans paramètre
+    // (utilisé dans EntrepriseTest pour les tests de getTrajetsPopulaires).
     public Voyage() {
     }
 
