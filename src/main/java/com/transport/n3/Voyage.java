@@ -12,6 +12,9 @@ public class Voyage {
     private Voiture voiture;
     private Chauffeur chauffeur;
 
+    public Voyage() {
+    }
+
     public Voyage(String id, LocalDateTime dateDepart, LocalDateTime dateArrive, Trajet trajet, Voiture voiture, Chauffeur chauffeur) {
         this.id = id;
         this.dateDepart = dateDepart;
