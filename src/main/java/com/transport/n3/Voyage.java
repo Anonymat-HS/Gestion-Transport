@@ -10,13 +10,12 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 
-public class PlanDeVoyage {
+public class Voyage {
     private String id;
     private LocalDateTime dateDepart;
     private LocalDateTime dateArrive;
     private Trajet trajet;
     private Voiture voiture;
     private Chauffeur chauffeur;
-
 
 }

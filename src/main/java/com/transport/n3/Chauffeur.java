@@ -12,9 +12,9 @@ import java.util.List;
 
 public class Chauffeur extends Employee{
     private String permis;
-    private List<PlanDeVoyage> calendrierDeVoyage;
+    private List<Voyage> calendrierDeVoyage;
 
-    public Chauffeur(String id, String nom, String prenom, String telephone, Sexe sexe, double salaire, String permis, List<PlanDeVoyage> calendrierDeVoyage) {
+    public Chauffeur(String id, String nom, String prenom, String telephone, Sexe sexe, double salaire, String permis, List<Voyage> calendrierDeVoyage) {
         super(id, nom, prenom, telephone, sexe, salaire);
         this.permis = permis;
         this.calendrierDeVoyage = new ArrayList<>();
@@ -25,7 +25,7 @@ public class Chauffeur extends Employee{
     }
 
     public boolean pasAuRepos (LocalDate date ){
-        for (PlanDeVoyage planDeVoyage : calendrierDeVoyage){
+        for (Voyage planDeVoyage : calendrierDeVoyage){
             LocalDate dateDepart = planDeVoyage.getDateDepart().toLocalDate();
             LocalDate dateArrivee = planDeVoyage.getDateArrive().toLocalDate();
 
@@ -35,7 +35,7 @@ public class Chauffeur extends Employee{
         }
         return false;
     }
-    public void ajouterVoyage (PlanDeVoyage plan){
+    public void ajouterVoyage (Voyage plan){
         calendrierDeVoyage.add(plan);
 
     }
