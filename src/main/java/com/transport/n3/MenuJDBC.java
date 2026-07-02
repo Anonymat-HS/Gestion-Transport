@@ -16,7 +16,7 @@ public class MenuJDBC {
     // Format : jdbc:postgresql://hôte:port/nom_de_la_base
     private static final String URL      = "jdbc:postgresql://localhost:5432/gestion_transport";
     private static final String USER     = "postgres";   // utilisateur PostgreSQL
-    private static final String PASSWORD = "ieh20251";   // mot de passe PostgreSQL (change le mot de passe ici si nécessaire)
+    private static final String PASSWORD = "";   // mot de passe PostgreSQL (change le mot de passe ici si nécessaire)
 
     public static void main(String[] args) {
 
