@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class VoyageurTest {
 
+
     private Voyageur voyageur;
     private Reservation reservation;
     private Voyage planDeVoyage;
@@ -75,7 +76,6 @@ class VoyageurTest {
                 "1234567890"
         );
 
-
         // =========================
         // 6. Reservation
         // =========================
@@ -90,79 +90,62 @@ class VoyageurTest {
                 50000.0,
                 bagage
         );
-
     }
 
-    // =========================
-    // TESTS
-    // =========================
+// =========================
+// TESTS
+// =========================
 
     @Test
     void faireReservation_shouldAddReservation() {
 
-
         voyageur.faireReservation(reservation);
 
         assertEquals(1, voyageur.getNbreTotalVoyages());
-
-
     }
 
     @Test
     void faireReservation_shouldThrowException_whenReservationIsNull() {
 
-
         assertThrows(IllegalArgumentException.class, () -> {
             voyageur.faireReservation(null);
         });
-
-
     }
 
     @Test
     void faireReservation_shouldThrowException_whenReservationAlreadyExists() {
-
 
         voyageur.faireReservation(reservation);
 
         assertThrows(IllegalStateException.class, () -> {
             voyageur.faireReservation(reservation);
         });
-
-
     }
 
     @Test
     void annulerReservation_shouldRemoveReservation() {
-
 
         voyageur.faireReservation(reservation);
 
         voyageur.annulerReservation(reservation);
 
         assertEquals(0, voyageur.getNbreTotalVoyages());
-
-
     }
 
     @Test
     void annulerReservation_shouldThrowException_whenReservationIsNull() {
 
-
         assertThrows(IllegalArgumentException.class, () -> {
             voyageur.annulerReservation(null);
         });
-
-
     }
 
     @Test
     void annulerReservation_shouldThrowException_whenReservationNotFound() {
 
-
-// réservation NON ajoutée
+        // réservation NON ajoutée
         var res = new Reservation(
-                "RES999",
+                "RES2", // ✅ ID différent
                 LocalDateTime.now(),
                 LocalDate.of(2026, 8, 1),
                 voyageur,
@@ -174,18 +157,15 @@ class VoyageurTest {
         );
 
         assertThrows(IllegalStateException.class, () -> {
-            voyageur.annulerReservation(res); // ✅ CORRIGÉ
+            voyageur.annulerReservation(res);
         });
-
-
     }
 
     @Test
     void getNbreTotalVoyages_shouldReturnCorrectSize() {
 
-
         var res1 = new Reservation(
-                "RES1",
+                "RES3", // ✅ ID différent
                 LocalDateTime.now(),
                 LocalDate.of(2025, 7, 10),
                 voyageur,
@@ -197,7 +177,7 @@ class VoyageurTest {
         );
 
         var res2 = new Reservation(
-                "RES999",
+                "RES4", // ✅ ID différent
                 LocalDateTime.now(),
                 LocalDate.of(2026, 8, 1),
                 voyageur,
@@ -212,8 +192,7 @@ class VoyageurTest {
         voyageur.faireReservation(res2);
 
         assertEquals(2, voyageur.getNbreTotalVoyages());
-
-
     }
+
 
 }

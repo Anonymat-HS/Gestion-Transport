@@ -33,10 +33,11 @@ public class Reservation {
         this.bagage = bagage;
         this.prixTotal =  voyage.getTrajet().getPrix(place.getTypeVoiture()) + bagage.getPrixSupplementaire();
 
-        if (voyageur != null) {
-            voyageur.faireReservation(this);
-        } else {
-            throw new IllegalArgumentException("La résérvation ne peut pas etre éfféctuée");
+
+        // Il y avait la methode fairereservation ici alors qu'il ne devrait pas être là car
+        // c'est à la classe voyageur de gérer ça du coup j'ai supprimé
+        if (voyageur == null) {
+            throw new IllegalArgumentException("Le voyageur ne peut pas être null");
         }
     }
 
