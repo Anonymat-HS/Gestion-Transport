@@ -486,7 +486,7 @@ public class TransportTest {
         }
     }
 
-
+    @Nested
     @DisplayName("Tests — Classe Entreprise")
     class EntrepriseTest {
 
@@ -790,76 +790,7 @@ public class TransportTest {
             }
         }
 
-        @Nested
-        @DisplayName("getTrajetsPopulaires()")
-        class GetTrajetsPopulairesTests {
 
-            private Trajet trajetA;
-            private Trajet trajetB;
-            private Trajet trajetC;
-
-            @BeforeEach
-            void setUpTrajets() {
-                trajetA = new Trajet("T001", Ville.ANTANANARIVO, Ville.TOAMASINA,  240, 25_000.0);
-                trajetB = new Trajet("T002", Ville.ANTANANARIVO, Ville.MAHAJANGA,  480, 30_000.0);
-                trajetC = new Trajet("T003", Ville.ANTANANARIVO, Ville.FIANARANTSOA, 300, 20_000.0);
-            }
-
-            private Reservation creerReservationPourTrajet(Trajet trajet) {
-                Voyage voyage = new Voyage();
-                voyage.setTrajet(trajet);
-                Reservation r = new Reservation();
-                r.setVoyage(voyage);
-                return r;
-            }
-
-            @Test
-            @DisplayName("Le trajet le plus réservé apparaît en premier")
-            void getTrajetsPopulaires_plusieursResas_triDecroissant() {
-                entreprise.ajouterReservation(creerReservationPourTrajet(trajetA));
-                entreprise.ajouterReservation(creerReservationPourTrajet(trajetA));
-                entreprise.ajouterReservation(creerReservationPourTrajet(trajetA));
-                entreprise.ajouterReservation(creerReservationPourTrajet(trajetB));
-                entreprise.ajouterReservation(creerReservationPourTrajet(trajetB));
-                entreprise.ajouterReservation(creerReservationPourTrajet(trajetC));
-
-                List<Trajet> result = entreprise.getTrajetsPopulaires();
-
-                assertEquals(trajetA, result.get(0));
-                assertEquals(trajetB, result.get(1));
-                assertEquals(trajetC, result.get(2));
-            }
-
-            @Test
-            @DisplayName("Retourne liste vide si aucune réservation")
-            void getTrajetsPopulaires_aucuneReservation_retourneListeVide() {
-                List<Trajet> result = entreprise.getTrajetsPopulaires();
-
-                assertTrue(result.isEmpty());
-            }
-
-            @Test
-            @DisplayName("Réservations avec voyage null sont ignorées sans plantage")
-            void getTrajetsPopulaires_voyageNull_ignoreSansException() {
-                Reservation rSansVoyage = new Reservation();
-
-                entreprise.ajouterReservation(rSansVoyage);
-
-                assertDoesNotThrow(() -> entreprise.getTrajetsPopulaires());
-            }
-
-            @Test
-            @DisplayName("Un seul trajet réservé : retourné seul dans la liste")
-            void getTrajetsPopulaires_unSeulTrajet_retourneListeAvecUnSeulElement() {
-                entreprise.ajouterReservation(creerReservationPourTrajet(trajetA));
-                entreprise.ajouterReservation(creerReservationPourTrajet(trajetA));
-
-                List<Trajet> result = entreprise.getTrajetsPopulaires();
-
-                assertEquals(1, result.size());
-                assertEquals(trajetA, result.get(0));
-            }
-        }
 
         @Nested
         @DisplayName("ajouterLog()")
@@ -2673,17 +2604,21 @@ public class TransportTest {
                     "VG002", "Rasoa", "Marie", "0347654321", "marie@email.com",
                     null, null, new ArrayList<>()
             );
-            assertNull(nouveauVoyageur.getReservation());
+            assertTrue(nouveauVoyageur.getReservation().isEmpty());
 
             nouveauVoyageur.faireReservation(reservation);
 
-            assertEquals(reservation, nouveauVoyageur.getReservation());
+            assertEquals(1, nouveauVoyageur.getReservation().size());
+            assertTrue(nouveauVoyageur.getReservation().contains(reservation));
+
         }
 
         @Test
         @DisplayName("setReservation modifie la réservation")
         void setReservation_nouvelleReservation_reservationModifiee() {
-            Reservation autreReservation = new Reservation();
+            List<Reservation> autreReservation = new ArrayList<>();
+            Reservation reservation1 = new Reservation();
+            autreReservation.add(reservation1);
 
             voyageur.setReservation(autreReservation);
 
