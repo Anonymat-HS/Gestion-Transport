@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class Receptionniste extends Employee {
 
     private List<Reservation> listeReservation;
@@ -25,18 +24,19 @@ public class Receptionniste extends Employee {
         this.listeReservation = listeReservation;
     }
 
-    public List <Place> afficherPlaceDispo (Voiture voiture, LocalDate date){
+    public List<Place> afficherPlaceDispo(Voiture voiture, LocalDate date) {
         List<Place> placeDispo = new ArrayList<>();
-        for ( Place place : voiture.getPlaces()){
-            if (place.isPlaceDispo()){
+        for (Place place : voiture.getPlaces()) {
+            if (place.isPlaceDispo()) {
                 placeDispo.add(place);
 
             }
         }
         return placeDispo;
     }
+
     //donner ticket
-    public Ticket donnerTicket (Reservation r) {
+    public Ticket donnerTicket(Reservation r) {
         if (r.getStatut() != StatutDeReservation.PAYEE) {
             System.out.println("Réservation non payé");
             return null;
@@ -53,12 +53,12 @@ public class Receptionniste extends Employee {
     //donner facture;
     //besoin du prix de la reservation de la partie 1
 
-    public  Facture donnerFacture (Reservation r){
-        if(r.getPrixTotal() <= 0){
+    public Facture donnerFacture(Reservation r) {
+        if (r.getPrixTotal() <= 0) {
             System.out.println("Montant invalide");
             return null;
         }
-        return  new Facture(
+        return new Facture(
                 r.getId(),
                 "Caisse-01",
                 r.getPrixTotal(),
@@ -66,15 +66,16 @@ public class Receptionniste extends Employee {
         );
 
     }
+
     //enregsitrer reservation
-    public void enregistrerReservation (Reservation r){
+    public void enregistrerReservation(Reservation r) {
         listeReservation.add(r);
 
         HistoriqueAction log = new HistoriqueAction(
-                 r.getId(),
+                r.getId(),
                 "Reservation fait pour" + r.getVoyageur().getNom(),
-                 LocalDateTime.now(),
-                 this
+                LocalDateTime.now(),
+                this
         );
     }
 
