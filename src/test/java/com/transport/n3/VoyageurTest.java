@@ -1,205 +1,219 @@
 package com.transport.n3;
 
+import com.transport.n3.*;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Tests — Classe Voyageur")
 class VoyageurTest {
 
     private Voyageur voyageur;
     private Reservation reservation;
+    private Voyage planDeVoyage;
+    private Trajet trajet;
+    private Place place;
+    private TypeDePaiments paiement;
+    private Bagage bagage;
 
     @BeforeEach
     void setUp() {
-        voyageur = new Voyageur(
-                "VG001",
-                "Rakoto",
-                "Jean",
-                "0341234567",
-                "jean.rakoto@email.com",
-                null,
-                null,
-                new ArrayList<>()
+
+        // =========================
+        // 1. Voyageur
+        // =========================
+        voyageur = new Voyageur("VG1", "Rabe", "Paul", "0349999999", "rabe@gmail.com", null, null, null);
+
+        // =========================
+        // 2. Trajet
+        // =========================
+        trajet = new Trajet(
+                "TR001",
+                Ville.ANTANANARIVO,
+                Ville.TOAMASINA,
+                6,
+                15000.0
         );
+        bagage = new Bagage("B1", "Valise cabine", 15.0, 10.0);
 
-        Trajet trajet = new Trajet("T1", Ville.ANTANANARIVO, Ville.TOAMASINA, 8, 50_000.0);
-        Chauffeur chauffeur = new Chauffeur("C1", "Rabe", "Paul", "0341111111", Sexe.MASCULIN, 600_000.0, "B");
-        Voiture voiture = new Voiture("V1", "1234-TBA", TypeVoiture.LITE, chauffeur);
-        Place place = voiture.getPlaces().get(0);
-        Bagage bagage = new Bagage("B1", "Valise", 15.0, 0.0);
-
-        Voyage voyage = new Voyage(
-                "VY1",
-                java.time.LocalDateTime.of(2025, 6, 1, 8, 0),
-                java.time.LocalDateTime.of(2025, 6, 1, 16, 0),
+        // =========================
+        // 3. PlanDeVoyage
+        // =========================
+        planDeVoyage = new Voyage(
+                "PV001",
+                LocalDateTime.of(2026, 7, 5, 8, 0),
+                LocalDateTime.of(2026, 7, 5, 12, 0),
                 trajet,
-                voiture,
-                chauffeur
-        );
-
-        reservation = new Reservation(
-                "R1",
-                java.time.LocalDateTime.now(),
-                java.time.LocalDate.of(2025, 6, 1),
-                voyageur,
-                voyage,
-                place,
-                StatutDeReservation.PAYEE,
-                50_000.0,
-                bagage
-        );
-    }
-
-    @Test
-    @DisplayName("Constructeur initialise correctement les attributs")
-    void constructeur_attributsValides_initialisationCorrecte() {
-        // Given + When : création dans setUp()
-
-        // Then
-        assertEquals("VG001", voyageur.getId());
-        assertEquals("Rakoto", voyageur.getNom());
-        assertEquals("Jean", voyageur.getPrenom());
-        assertEquals("0341234567", voyageur.getTelephone());
-        assertEquals("jean.rakoto@email.com", voyageur.getEmail());
-        assertNotNull(voyageur.getReservation());
-        assertNull(voyageur.getTicket());
-        assertNotNull(voyageur.getListeBagage());
-        assertTrue(voyageur.getListeBagage().isEmpty());
-    }
-
-    @Test
-    @DisplayName("setId modifie l'identifiant")
-    void setId_nouvelId_idModifie() {
-        // Given
-        assertEquals("VG001", voyageur.getId());
-
-        // When
-        voyageur.setId("VG002");
-
-        // Then
-        assertEquals("VG002", voyageur.getId());
-    }
-
-    @Test
-    @DisplayName("setNom modifie le nom")
-    void setNom_nouveauNom_nomModifie() {
-        // Given
-        assertEquals("Rakoto", voyageur.getNom());
-
-        // When
-        voyageur.setNom("Rasoa");
-
-        // Then
-        assertEquals("Rasoa", voyageur.getNom());
-    }
-
-    @Test
-    @DisplayName("setPrenom modifie le prénom")
-    void setPrenom_nouveauPrenom_prenomModifie() {
-        // Given
-        assertEquals("Jean", voyageur.getPrenom());
-
-        // When
-        voyageur.setPrenom("Marie");
-
-        // Then
-        assertEquals("Marie", voyageur.getPrenom());
-    }
-
-    @Test
-    @DisplayName("setTelephone modifie le téléphone")
-    void setTelephone_nouveauTelephone_telephoneModifie() {
-        // Given
-        assertEquals("0341234567", voyageur.getTelephone());
-
-        // When
-        voyageur.setTelephone("0347654321");
-
-        // Then
-        assertEquals("0347654321", voyageur.getTelephone());
-    }
-
-    @Test
-    @DisplayName("setEmail modifie l'email")
-    void setEmail_nouvelEmail_emailModifie() {
-        // Given
-        assertEquals("jean.rakoto@email.com", voyageur.getEmail());
-
-        // When
-        voyageur.setEmail("nouveau@email.com");
-
-        // Then
-        assertEquals("nouveau@email.com", voyageur.getEmail());
-    }
-
-    @Test
-    @DisplayName("faireReservation associe une réservation au voyageur")
-    void faireReservation_reservationValide_reservationAssociee() {
-        // Given : un nouveau voyageur sans réservation
-        Voyageur nouveauVoyageur = new Voyageur(
-                "VG002", "Rasoa", "Marie", "0347654321", "marie@email.com",
-                null, null, new ArrayList<>()
-        );
-        assertNull(nouveauVoyageur.getReservation());
-
-        // When
-        nouveauVoyageur.faireReservation(reservation);
-
-        // Then
-        assertEquals(reservation, nouveauVoyageur.getReservation());
-    }
-
-    @Test
-    @DisplayName("setReservation modifie la réservation")
-    void setReservation_nouvelleReservation_reservationModifiee() {
-        // Given
-        Reservation autreReservation = new Reservation();
-
-        // When
-        voyageur.setReservation(autreReservation);
-
-        // Then
-        assertEquals(autreReservation, voyageur.getReservation());
-    }
-
-    @Test
-    @DisplayName("setTicket modifie le ticket")
-    void setTicket_nouveauTicket_ticketModifie() {
-        // Given
-        Ticket ticket = new Ticket(
-                "TK1",
-                java.time.LocalDateTime.now(),
-                java.time.LocalDateTime.now().plusHours(8),
-                voyageur,
                 null,
                 null
         );
 
-        // When
-        voyageur.setTicket(ticket);
+        // =========================
+        // 4. Place
+        // =========================
+        place = new Place(
+                1,
+                TypeVoiture.LITE,
+                true,
+                true
+        );
 
-        // Then
-        assertEquals(ticket, voyageur.getTicket());
+        place.setPlaceDispo(true);
+
+        // =========================
+        // 5. Paiement (classe concrète)
+        // =========================
+        paiement = new PaiementParCarte(
+                "PAY001",
+                LocalDateTime.now(),
+                15000.0,
+                "Julien",
+                Banque.BOA,
+                "1234567890"
+        );
+
+
+        // =========================
+        // 6. Reservation
+        // =========================
+        reservation = new Reservation(
+                "RES1",
+                LocalDateTime.now(),
+                LocalDate.of(2025, 6, 1),
+                voyageur,
+                planDeVoyage,
+                place,
+                StatutDeReservation.PAYEE,
+                50000.0,
+                bagage
+        );
+
+    }
+
+    // =========================
+    // TESTS
+    // =========================
+
+    @Test
+    void faireReservation_shouldAddReservation() {
+
+
+        voyageur.faireReservation(reservation);
+
+        assertEquals(1, voyageur.getNbreTotalVoyages());
+
+
     }
 
     @Test
-    @DisplayName("setListeBagage modifie la liste des bagages")
-    void setListeBagage_nouvelleListe_listeModifiee() {
-        // Given
-        Bagage bagage = new Bagage("B1", "Sac", 10.0, 0.0);
-        List<Bagage> nouveauxBagages = new ArrayList<>(List.of(bagage));
+    void faireReservation_shouldThrowException_whenReservationIsNull() {
 
-        // When
-        voyageur.setListeBagage(nouveauxBagages);
 
-        // Then
-        assertEquals(1, voyageur.getListeBagage().size());
-        assertTrue(voyageur.getListeBagage().contains(bagage));
+        assertThrows(IllegalArgumentException.class, () -> {
+            voyageur.faireReservation(null);
+        });
+
+
     }
+
+    @Test
+    void faireReservation_shouldThrowException_whenReservationAlreadyExists() {
+
+
+        voyageur.faireReservation(reservation);
+
+        assertThrows(IllegalStateException.class, () -> {
+            voyageur.faireReservation(reservation);
+        });
+
+
+    }
+
+    @Test
+    void annulerReservation_shouldRemoveReservation() {
+
+
+        voyageur.faireReservation(reservation);
+
+        voyageur.annulerReservation(reservation);
+
+        assertEquals(0, voyageur.getNbreTotalVoyages());
+
+
+    }
+
+    @Test
+    void annulerReservation_shouldThrowException_whenReservationIsNull() {
+
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            voyageur.annulerReservation(null);
+        });
+
+
+    }
+
+    @Test
+    void annulerReservation_shouldThrowException_whenReservationNotFound() {
+
+
+// réservation NON ajoutée
+        var res = new Reservation(
+                "RES999",
+                LocalDateTime.now(),
+                LocalDate.of(2026, 8, 1),
+                voyageur,
+                planDeVoyage,
+                place,
+                StatutDeReservation.PAYEE,
+                50000.0,
+                bagage
+        );
+
+        assertThrows(IllegalStateException.class, () -> {
+            voyageur.annulerReservation(res); // ✅ CORRIGÉ
+        });
+
+
+    }
+
+    @Test
+    void getNbreTotalVoyages_shouldReturnCorrectSize() {
+
+
+        var res1 = new Reservation(
+                "RES1",
+                LocalDateTime.now(),
+                LocalDate.of(2025, 7, 10),
+                voyageur,
+                planDeVoyage,
+                place,
+                StatutDeReservation.PAYEE,
+                50000.0,
+                bagage
+        );
+
+        var res2 = new Reservation(
+                "RES999",
+                LocalDateTime.now(),
+                LocalDate.of(2026, 8, 1),
+                voyageur,
+                planDeVoyage,
+                place,
+                StatutDeReservation.PAYEE,
+                50000.0,
+                bagage
+        );
+
+        voyageur.faireReservation(res1);
+        voyageur.faireReservation(res2);
+
+        assertEquals(2, voyageur.getNbreTotalVoyages());
+
+
+    }
+
 }

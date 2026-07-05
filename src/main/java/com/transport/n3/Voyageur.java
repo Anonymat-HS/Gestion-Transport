@@ -3,13 +3,16 @@ package com.transport.n3;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
 public class   Voyageur {
     private String id;
     private String nom;
     private String prenom;
     private String telephone;
     private String email;
-    private Reservation reservation;
+    private List<Reservation> reservations;
     private Ticket ticket;
     private List <Bagage> listeBagage;
 
@@ -19,7 +22,7 @@ public class   Voyageur {
         this.prenom = prenom;
         this.telephone = telephone;
         this.email = email;
-        this.reservation = reservation;
+        this.reservations = new ArrayList<>();
         this.ticket = ticket;
         this.listeBagage = new ArrayList<>();
     }
@@ -64,12 +67,12 @@ public class   Voyageur {
         this.email = email;
     }
 
-    public Reservation getReservation() {
-        return reservation;
+    public List<Reservation> getReservation() {
+        return reservations;
     }
 
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
+    public void setReservation(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 
     public Ticket getTicket() {
@@ -89,6 +92,38 @@ public class   Voyageur {
     }
 
     public void faireReservation(Reservation reservation) {
-        this.reservation = reservation;
+
+
+        if (reservation == null) {
+            throw new IllegalArgumentException("La réservation ne peut pas être null");
+        }
+
+        if (this.reservations.contains(reservation)) {
+            throw new IllegalStateException("Réservation déjà existante");
+        }
+
+        this.reservations.add(reservation);
+
+
+    }
+
+    public void annulerReservation(Reservation reservation) {
+
+
+        if (reservation == null) {
+            throw new IllegalArgumentException("La réservation ne peut pas être null");
+        }
+
+        if (!this.reservations.contains(reservation)) {
+            throw new IllegalStateException("Réservation introuvable");
+        }
+
+        this.reservations.remove(reservation);
+
+
+    }
+
+    public int getNbreTotalVoyages() {
+        return this.reservations.size();
     }
 }
