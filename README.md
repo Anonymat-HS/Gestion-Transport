@@ -40,6 +40,72 @@ mvn test
 
 207 tests unitaires (JUnit 5) avec format GIVEN-WHEN-THEN.
 
+## Structure du projet
+
+```
+.
+├── init.sql
+├── pom.xml
+├── README.md
+└── src
+    ├── main
+    │   ├── java/com/transport/n3/
+    │   │   ├── Admin.java
+    │   │   ├── Bagage.java
+    │   │   ├── Banque.java
+    │   │   ├── Chauffeur.java
+    │   │   ├── Employee.java
+    │   │   ├── Entreprise.java
+    │   │   ├── Facture.java
+    │   │   ├── HistoriqueAction.java
+    │   │   ├── MenuJDBC.java
+    │   │   ├── Operateur.java
+    │   │   ├── PaiementEspece.java
+    │   │   ├── PaiementParCarte.java
+    │   │   ├── PaimentMobile.java
+    │   │   ├── Place.java
+    │   │   ├── Receptionniste.java
+    │   │   ├── Reservation.java
+    │   │   ├── Sexe.java
+    │   │   ├── StatutDeReservation.java
+    │   │   ├── Ticket.java
+    │   │   ├── Trajet.java
+    │   │   ├── TypeDePaiments.java
+    │   │   ├── TypeVoiture.java
+    │   │   ├── Ville.java
+    │   │   ├── Voiture.java
+    │   │   ├── Voyage.java
+    │   │   └── Voyageur.java
+    │   └── resources
+    └── test
+        └── java/com/transport/n3/
+            ├── AdminTest.java
+            ├── BagageTest.java
+            ├── BanqueTest.java
+            ├── ChauffeurTest.java
+            ├── EntrepriseTest.java
+            ├── FactureTest.java
+            ├── HistoriqueActionTest.java
+            ├── OperateurTest.java
+            ├── PaiementEspeceTest.java
+            ├── PaiementParCarteTest.java
+            ├── PaimentMobileTest.java
+            ├── PlaceTest.java
+            ├── ReceptionnisteTest.java
+            ├── ReservationTest.java
+            ├── SexeTest.java
+            ├── StatutDeReservationTest.java
+            ├── TicketTest.java
+            ├── TrajetTest.java
+            ├── TransportTest.java
+            ├── TypeDePaimentsTest.java
+            ├── TypeVoitureTest.java
+            ├── VilleTest.java
+            ├── VoitureTest.java
+            ├── VoyageTest.java
+            └── VoyageurTest.java
+```
+
 ## Contributeurs
 
 | Matricule | Nom |
