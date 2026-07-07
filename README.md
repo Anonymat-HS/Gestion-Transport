@@ -39,3 +39,12 @@ mvn test
 ```
 
 207 tests unitaires (JUnit 5) avec format GIVEN-WHEN-THEN.
+
+## Contributeurs
+
+| Matricule | Nom |
+|-----------|-----|
+| STD25006 | FRANÇOISE Anthonia Marie Pierre Trésore |
+| STD25045 | RASOAMIARAMANANA Herimihaja Steevy |
+| STD25062 | RAKOTONIAINA Misoa |
+| STD25109 | RANDRIANANTENAINA Fanomezantsoa Julien Anderson |
